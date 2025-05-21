@@ -1,59 +1,59 @@
+Here is the **updated `README.md`** based on all the latest improvements and professor-driven updates to your project:
 
+---
+
+```markdown
 # Comparative Analysis of Sorting Algorithms for Large-Scale Log File Processing
 
 ## 📌 Project Overview
-This project provides a complete solution for sorting large-scale log files using four optimized sorting algorithms:
-- Quick Sort (Optimized with Median-of-Three Pivot Selection)
-- Merge Sort (External Sorting for large files)
-- Heap Sort (Memory-Efficient In-Place Sorting)
-- Radix Sort (Timestamp-Optimized Sorting)
+This project provides a complete benchmarking and visualization framework to evaluate sorting algorithms applied to large-scale log file processing. It extends traditional comparisons by capturing detailed metrics, enabling statistical validation, and supporting multiple log patterns:
 
-The project includes a fully modular codebase with components for log generation, sorting, benchmarking, and performance visualization.
+- **Quick Sort** – Optimized with Median-of-Three Pivot
+- **Merge Sort** – Stable and External Sort-ready
+- **Heap Sort** – In-place, Memory-Efficient
+- **Radix Sort** – Optimized for Timestamp-Based Structured Logs
+
+The framework supports synthetic log generation, tracking of comparisons & swaps, and detailed performance visualization.
 
 ---
 
 ## 📁 Project Directory Structure
 
 ```
-project_root/
+
+project\_root/
 │
 ├── src/
-│   ├── algorithms/          # Sorting Algorithm Implementations
-│   │   ├── quick_sort.py
-│   │   ├── merge_sort.py
-│   │   ├── heap_sort.py
-│   │   └── radix_sort.py
-│   │
-│   ├── log_generator/       # Log File Generator
-│   │   └── log_generator.py
-│   │
-│   ├── benchmarking/        # Benchmarking and Metrics Collection
-│   │   ├── metrics_collector.py
-│   │   └── performance_dashboard.py
-│   │
-│   ├── optimizations/       # Advanced Optimizations
-│   │   ├── multithreading.py
-│   │   ├── memory_pool.py
-│   │   └── circular_buffer.py
-│   │
-│   └── stream_processing/   # Efficient Log File Stream Processing
-│       └── log_stream_processor.py
+│   ├── algorithms/                # Sorting algorithm implementations
+│   ├── log\_generator/             # Generates log files in 4 patterns
+│   ├── benchmarking/              # Metrics collector & dashboard visualizations
+│   ├── optimizations/             # Advanced structures: multithreading, memory pool
+│   └── stream\_processing/         # Log stream handler
 │
-├── reports/                 # Benchmark Results Storage
-│   └── benchmark_results.csv
+├── reports/                       # Results and generated plots
+│   ├── benchmark\_results.csv
+│   └── plots/
+│       ├── time\_plot.png
+│       ├── memory\_data\_plot.png
+│       ├── memory\_program\_plot.png
+│       ├── comparisons\_plot.png
+│       └── swaps\_plot.png
 │
-└── main.py                  # Main Program - Complete Workflow
-```
+├── main.py                        # Entry point: log generation, benchmarking, and plotting
+├── plot\_benchmark\_results.py      # Optional CLI script to generate graphs from CSV
+├── Log\_Sorting\_Demo\_AutoPlot.ipynb# Jupyter notebook to demo and visualize all metrics
+└── requirements.txt               # Python dependencies
+
+````
 
 ---
 
-## 🚀 Features
-- Four optimized sorting algorithms with clear modular implementation.
-- Synthetic log file generation (Random, Time-sequential, Mixed, Partially Sorted).
-- Benchmarking framework with CPU, Memory, and Time metrics collection.
-- Multi-threaded sorting using Python threads.
-- Advanced memory management with Circular Buffer and Memory Pool.
-- Real-time performance visualization with matplotlib.
+## 🚀 Key Features
+- 🔁 Log file generator supports 4 patterns: `random`, `sorted`, `reverse`, `partial`
+- 🧪 Benchmarks with: `execution time`, `memory (data + program)`, `comparisons`, `swaps`
+- 📊 Repeated trials (configurable) with CSV export
+- 📈 Auto-generated performance plots with `matplotlib` and `seaborn`
+- 🧠 Visual and statistical comparison across algorithms and patterns
 
 ---
 
@@ -61,63 +61,86 @@ project_root/
 
 ### Prerequisites
 - Python 3.11+
-- Libraries: matplotlib, psutil
+- Install dependencies:
+```bash
+pip install -r requirements.txt
+````
+
+---
+
+### Running the Full Benchmarking Workflow
 
 ```bash
-pip install matplotlib psutil
+python main.py
 ```
 
-### Running the Project
-1. Clone the Repository (or unzip the provided folder).
-2. Navigate to the project root.
-3. Run the main program:
-   ```bash
-   python main.py
-   ```
+This will:
 
-### Expected Output
-- Synthetic log file (logs.txt) will be generated.
-- All four sorting algorithms will be applied and benchmarked.
-- Performance metrics will be displayed using a graphical dashboard.
+* Generate logs in all 4 patterns
+* Apply all 4 sorting algorithms
+* Measure metrics and store them in `benchmark_results.csv`
+* Automatically generate plots into `reports/plots/`
 
 ---
 
-## 💡 Usage Examples
+### 📈 Visualizing Results Independently
 
-### Example: Generating Logs
+```bash
+python plot_benchmark_results.py
+```
+
+This reads `reports/benchmark_results.csv` and generates:
+
+* `time_plot.png`
+* `memory_program_plot.png`
+* `memory_data_plot.png`
+* `comparisons_plot.png`
+* `swaps_plot.png`
+
+---
+
+### 🧪 Example: Generate One Log Type Manually
+
 ```python
 from src.log_generator.log_generator import LogGenerator
-
-gen = LogGenerator()
-gen.generate_log_file("logs.txt", 10000)  # Generates a 10,000 entry log file
+LogGenerator().generate_log_file("logs/random.txt", 10000, pattern='random')
 ```
 
-### Example: Running Sorting Algorithms
+### 🔍 Example: Custom Benchmark with Tracker
+
 ```python
 from src.algorithms.quick_sort import quick_sort
+from src.benchmarking.metrics_collector import MetricsCollector, OperationTracker
 
-logs = ["2025-05-14 12:34:56 [INFO] Sample log"]
-sorted_logs = quick_sort(logs)
-```
-
-### Example: Visualizing Performance
-```python
-from src.benchmarking.performance_dashboard import plot_performance
-
-# Example results data
-results = [
-    {'function': 'Quick Sort', 'duration_sec': 0.51, 'memory_used_MB': 15.2},
-    {'function': 'Merge Sort', 'duration_sec': 1.32, 'memory_used_MB': 25.8}
-]
-plot_performance(results)
+logs = [...]  # your log data
+tracker = OperationTracker()
+metrics = MetricsCollector()
+sorted_data = metrics.measure(quick_sort, logs, tracker)
+print(metrics.results)
 ```
 
 ---
 
-## ⚡ Contributing
-Contributions are welcome. Please fork the repository, make your changes, and submit a pull request.
+## 📓 Jupyter Demo
+
+Use the notebook:
+
+```bash
+jupyter notebook Log_Sorting_Demo_AutoPlot.ipynb
+```
+
+This demonstrates the entire benchmarking and plotting flow interactively.
 
 ---
 
 ## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
+This project is licensed under the MIT License – see the LICENSE file for details.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Fork the repo, make improvements, and submit a pull request.
+
+```
