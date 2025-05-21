@@ -12,28 +12,28 @@ The framework supports synthetic log generation, tracking of comparisons & swaps
 
 ## 📁 Project Directory Structure
 
-project\_root/
+project_root/
 │
 ├── src/
-│   ├── algorithms/                # Sorting algorithm implementations
-│   ├── log\_generator/             # Generates log files in 4 patterns
-│   ├── benchmarking/              # Metrics collector & dashboard visualizations
-│   ├── optimizations/             # Advanced structures: multithreading, memory pool
-│   └── stream\_processing/         # Log stream handler
+│ ├── algorithms/ # Sorting algorithm implementations
+│ ├── log_generator/ # Generates log files in 4 patterns
+│ ├── benchmarking/ # Metrics collector & dashboard visualizations
+│ ├── optimizations/ # Advanced structures: multithreading, memory pool
+│ └── stream_processing/ # Log stream handler
 │
-├── reports/                       # Results and generated plots
-│   ├── benchmark\_results.csv
-│   └── plots/
-│       ├── time\_plot.png
-│       ├── memory\_data\_plot.png
-│       ├── memory\_program\_plot.png
-│       ├── comparisons\_plot.png
-│       └── swaps\_plot.png
+├── reports/ # Results and generated plots
+│ ├── benchmark_results.csv
+│ └── plots/
+│ ├── time_plot.png
+│ ├── memory_data_plot.png
+│ ├── memory_program_plot.png
+│ ├── comparisons_plot.png
+│ └── swaps_plot.png
 │
-├── main.py                        # Entry point: log generation, benchmarking, and plotting
-├── plot\_benchmark\_results.py      # Optional CLI script to generate graphs from CSV
-├── Log\_Sorting\_Demo\_AutoPlot.ipynb# Jupyter notebook to demo and visualize all metrics
-└── requirements.txt               # Python dependencies
+├── main.py # Entry point: log generation, benchmarking, and plotting
+├── plot_benchmark_results.py # Optional CLI script to generate graphs from CSV
+├── Log_Sorting_Demo_AutoPlot.ipynb# Jupyter notebook to demo and visualize all metrics
+└── requirements.txt # Python dependencies
 
 ## 🚀 Key Features
 - 🔁 Log file generator supports 4 patterns: `random`, `sorted`, `reverse`, `partial`
