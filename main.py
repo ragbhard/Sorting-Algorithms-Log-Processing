@@ -1,41 +1,64 @@
-
+from src.log_generator.log_generator import LogGenerator
 from src.algorithms.quick_sort import quick_sort
 from src.algorithms.merge_sort import merge_sort
 from src.algorithms.heap_sort import heap_sort
 from src.algorithms.radix_sort import radix_sort
-from src.log_generator.log_generator import LogGenerator
-from src.benchmarking.metrics_collector import MetricsCollector
-from src.benchmarking.performance_dashboard import plot_performance
+from src.benchmarking.metrics_collector import MetricsCollector, OperationTracker
+import pandas as pd
+import os
 
-def main():
-    # Generate Log File
-    generator = LogGenerator()
-    generator.generate_log_file("logs.txt", 10000)
+# Configuration
+patterns = ['random', 'sorted', 'reverse', 'partial']
+algorithms = {
+    'Quick Sort': quick_sort,
+    'Merge Sort': merge_sort,
+    'Heap Sort': heap_sort,
+    'Radix Sort': radix_sort
+}
+entry_count = 10000
+repeats = 5
+results = []
 
-    # Sorting Algorithms
-    with open("logs.txt") as f:
-        logs = f.readlines()
+# Create directories if not exist
+os.makedirs("logs", exist_ok=True)
+os.makedirs("reports", exist_ok=True)
+
+# Run benchmarks
+for pattern in patterns:
+    print(f"\n--- Pattern: {pattern.upper()} ---")
     
-    metrics = MetricsCollector()
+    # Generate log file
+    log_file = f"logs/{pattern}_logs.txt"
+    LogGenerator().generate_log_file(log_file, entry_count, pattern)
 
-    # Quick Sort
-    logs_copy = logs.copy()
-    sorted_logs = metrics.measure(quick_sort)(logs_copy)
-    
-    # Merge Sort
-    logs_copy = logs.copy()
-    sorted_logs = metrics.measure(merge_sort)(logs_copy)
+    # Read generated logs
+    with open(log_file, 'r') as f:
+        original_logs = f.readlines()
 
-    # Heap Sort
-    logs_copy = logs.copy()
-    sorted_logs = metrics.measure(heap_sort)(logs_copy)
+    for name, algorithm in algorithms.items():
+        print(f"Testing: {name}")
+        
+        for run in range(repeats):
+            logs_copy = original_logs.copy()
+            tracker = OperationTracker()
+            metrics = MetricsCollector()
+            
+            # ✅ Proper call to measure()
+            sorted_logs = metrics.measure(algorithm, logs_copy, tracker)
+            
+            # Collect results
+            results.append({
+                'Algorithm': name,
+                'Pattern': pattern,
+                'Run': run + 1,
+                **metrics.results[-1]  # Get latest recorded result
+            })
 
-    # Radix Sort
-    logs_copy = [int(line.split()[0].replace("-", "").replace(":", "").replace(" ", "")) for line in logs]
-    sorted_logs = metrics.measure(radix_sort)(logs_copy)
+# Save to CSV
+df = pd.DataFrame(results)
+df.to_csv("reports/benchmark_results.csv", index=False)
+print("\\n✅ Benchmarking complete. Results saved to reports/benchmark_results.csv")
 
-    # Display Results
-    plot_performance(metrics.results)
-
-if __name__ == "__main__":
-    main()
+# Generate plots automatically
+from src.benchmarking.performance_dashboard import plot_all_metrics
+plot_all_metrics("reports/benchmark_results.csv")
