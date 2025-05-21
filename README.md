@@ -1,8 +1,3 @@
-Here is the **updated `README.md`** based on all the latest improvements and professor-driven updates to your project:
-
----
-
-```markdown
 # Comparative Analysis of Sorting Algorithms for Large-Scale Log File Processing
 
 ## 📌 Project Overview
@@ -15,11 +10,7 @@ This project provides a complete benchmarking and visualization framework to eva
 
 The framework supports synthetic log generation, tracking of comparisons & swaps, and detailed performance visualization.
 
----
-
 ## 📁 Project Directory Structure
-
-```
 
 project\_root/
 │
@@ -44,18 +35,12 @@ project\_root/
 ├── Log\_Sorting\_Demo\_AutoPlot.ipynb# Jupyter notebook to demo and visualize all metrics
 └── requirements.txt               # Python dependencies
 
-````
-
----
-
 ## 🚀 Key Features
 - 🔁 Log file generator supports 4 patterns: `random`, `sorted`, `reverse`, `partial`
 - 🧪 Benchmarks with: `execution time`, `memory (data + program)`, `comparisons`, `swaps`
 - 📊 Repeated trials (configurable) with CSV export
 - 📈 Auto-generated performance plots with `matplotlib` and `seaborn`
 - 🧠 Visual and statistical comparison across algorithms and patterns
-
----
 
 ## ⚡ Getting Started
 
@@ -65,8 +50,6 @@ project\_root/
 ```bash
 pip install -r requirements.txt
 ````
-
----
 
 ### Running the Full Benchmarking Workflow
 
@@ -81,8 +64,6 @@ This will:
 * Measure metrics and store them in `benchmark_results.csv`
 * Automatically generate plots into `reports/plots/`
 
----
-
 ### 📈 Visualizing Results Independently
 
 ```bash
@@ -96,8 +77,6 @@ This reads `reports/benchmark_results.csv` and generates:
 * `memory_data_plot.png`
 * `comparisons_plot.png`
 * `swaps_plot.png`
-
----
 
 ### 🧪 Example: Generate One Log Type Manually
 
@@ -119,8 +98,6 @@ sorted_data = metrics.measure(quick_sort, logs, tracker)
 print(metrics.results)
 ```
 
----
-
 ## 📓 Jupyter Demo
 
 Use the notebook:
@@ -131,14 +108,9 @@ jupyter notebook Log_Sorting_Demo_AutoPlot.ipynb
 
 This demonstrates the entire benchmarking and plotting flow interactively.
 
----
-
 ## 📄 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Fork the repo, make improvements, and submit a pull request.
