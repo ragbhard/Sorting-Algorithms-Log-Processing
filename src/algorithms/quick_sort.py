@@ -1,5 +1,16 @@
 
 def quick_sort(arr, tracker):
+    def median_of_three(arr, low, high):
+        mid = (low + high) // 2
+        if tracker.compare(arr[mid], arr[low]):
+            tracker.swap(arr, mid, low)
+        if tracker.compare(arr[high], arr[low]):
+            tracker.swap(arr, high, low)
+        if tracker.compare(arr[high], arr[mid]):
+            tracker.swap(arr, high, mid)
+        tracker.swap(arr, mid, high)
+        return partition(arr, low, high)
+
     def partition(arr, low, high):
         pivot = arr[high]
         i = low - 1
@@ -10,16 +21,16 @@ def quick_sort(arr, tracker):
         tracker.swap(arr, i + 1, high)
         return i + 1
 
-    def quicksort_recursive(arr, low, high):
+    def quicksort_optimized(arr, low, high):
         while low < high:
-            pi = partition(arr, low, high)
+            pi = median_of_three(arr, low, high)
             if pi - low < high - pi:
-                quicksort_recursive(arr, low, pi - 1)
+                quicksort_optimized(arr, low, pi - 1)
                 low = pi + 1
             else:
-                quicksort_recursive(arr, pi + 1, high)
+                quicksort_optimized(arr, pi + 1, high)
                 high = pi - 1
 
     arr = arr.copy()
-    quicksort_recursive(arr, 0, len(arr) - 1)
+    quicksort_optimized(arr, 0, len(arr) - 1)
     return arr
