@@ -28,7 +28,7 @@ for pattern in patterns:
     print(f"\n--- Pattern: {pattern.upper()} ---")
     
     # Generate log file
-    log_file = f"logs/{pattern}_logs.txt"
+    log_file = f"logs/{pattern}_demo.txt"
     LogGenerator().generate_log_file(log_file, entry_count, pattern)
 
     # Read generated logs
