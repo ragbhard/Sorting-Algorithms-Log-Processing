@@ -23,8 +23,8 @@ def counting_sort(arr, exp, tracker):
     i = n - 1
     while i >= 0:
         index = (arr[i] // exp) % 10
-        output[count[index] - 1] = arr[i]
-        tracker.swaps += 1
+        position = count[index] - 1
+        tracker.write(output, position, arr[i])  # count this as a write operation
         count[index] -= 1
         i -= 1
 
